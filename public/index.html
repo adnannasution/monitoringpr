@@ -8175,6 +8175,22 @@ async function deleteUser(id, username) {
 // ============================================================
 document.getElementById('login-page').style.display = 'none';
 
+// ⚠️ LOGIN SEMENTARA DINONAKTIFKAN — aktifkan kembali setelah akun dibuat
+// Untuk mengaktifkan login lagi: hapus blok ini dan uncomment blok checkAuth di bawah
+(async () => {
+  try {
+    await init();
+    switchApp('taex');
+    initAllResizable();
+    initColVisibility();
+    initFreezeListeners();
+  } catch(e) {
+    console.error('init error:', e);
+    try { hideInitLoading(); } catch(_) {}
+  }
+})();
+
+/* 🔒 AKTIFKAN KEMBALI LOGIN — uncomment blok ini, hapus blok di atas
 (async () => {
   const authed = await checkAuth();
   if (!authed) return;
@@ -8189,6 +8205,7 @@ document.getElementById('login-page').style.display = 'none';
     try { hideInitLoading(); } catch(_) {}
   }
 })();
+*/
 
 </script>
 
