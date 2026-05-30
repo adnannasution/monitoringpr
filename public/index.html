@@ -611,6 +611,9 @@ input.row-check { cursor: pointer; accent-color: #6366f1; width: 14px; height: 1
 }
 body{ background:var(--t-bg) !important; color:var(--t-text); }
  
+/* matikan splash screen */
+#init-loading{ display:none !important; }
+ 
 /* ── TOP BAR + BREADCRUMB ─────────────────────────────────── */
 .header{
   background:var(--t-surface) !important; height:60px !important;
@@ -630,11 +633,6 @@ body{ background:var(--t-bg) !important; color:var(--t-text); }
   display:flex; align-items:center; justify-content:center; transition:.15s;
 }
 .icon-btn:hover{ background:#f3f0ff; border-color:#ddd6fe; }
-.notif-badge{
-  position:absolute; top:-5px; right:-5px; background:#ef4444; color:#fff;
-  font-size:9px; font-weight:800; min-width:16px; height:16px; border-radius:99px;
-  display:flex; align-items:center; justify-content:center; padding:0 4px; border:2px solid #fff;
-}
 .user-chip{
   display:flex; align-items:center; gap:8px; background:#f8f9ff;
   border:1px solid var(--t-border); border-radius:99px; padding:4px 12px 4px 5px;
@@ -655,10 +653,14 @@ body{ background:var(--t-bg) !important; color:var(--t-text); }
 .hdr-btn.logout{ background:linear-gradient(135deg,var(--t-primary),var(--t-primary2)); color:#fff; border:none; }
 .hdr-btn.logout:hover{ filter:brightness(1.08); }
  
-/* ── SIDEBAR → RAIL IKON ──────────────────────────────────── */
+/* ── SIDEBAR → RAIL IKON + SHOW/HIDE ──────────────────────── */
 .sidebar{
   width:66px !important; min-width:66px !important;
   background:var(--t-rail) !important; border-right:1px solid var(--t-border) !important;
+  transition:width .22s ease, min-width .22s ease;
+}
+body.rail-hidden .sidebar{
+  width:0 !important; min-width:0 !important; border-right:none !important; overflow:hidden !important;
 }
 .sidebar-top{ padding:12px 8px !important; }
 .sb-section-label{
@@ -670,7 +672,7 @@ body{ background:var(--t-bg) !important; color:var(--t-text); }
   border-radius:14px !important; justify-content:center !important; position:relative; color:#9ca3af !important;
 }
 .tab .tab-icon{ font-size:19px !important; width:auto !important; }
-.tab .tab-label{ display:none !important; }      /* judul muncul lewat tooltip native (title) */
+.tab .tab-label{ display:none !important; }
 .tab:hover{ background:#f3f0ff !important; color:#6d28d9 !important; }
 .tab.active{
   background:linear-gradient(135deg,var(--t-primary),var(--t-primary2)) !important; color:#fff !important;
@@ -694,10 +696,47 @@ body{ background:var(--t-bg) !important; color:var(--t-text); }
 .col-toggle-btn{ border-radius:10px !important; }
 .info-bar{ border-radius:12px !important; }
  
-/* ── TABEL + KARTU (radius lebih lembut, kepala tetap navy) ── */
+/* ── TABEL + KARTU ────────────────────────────────────────── */
 .table-container, .table-wrap{ border-radius:14px !important; }
 .trk-card{ border-radius:16px !important; }
 .pagination{ border-radius:0 0 14px 14px; }
+ 
+/* ── LOGIN PAGE ───────────────────────────────────────────── */
+.login-bg{
+  position:fixed; inset:0; z-index:9999; display:none; align-items:center; justify-content:center;
+  background:linear-gradient(135deg,#3b0a6b 0%,#6d28d9 55%,#7c3aed 100%);
+}
+.login-card{
+  background:#fff; border-radius:18px; padding:38px 34px; width:380px; max-width:92vw;
+  box-shadow:0 24px 70px rgba(0,0,0,.35);
+}
+.login-logo{
+  width:56px; height:56px; margin:0 auto 14px; border-radius:16px;
+  background:linear-gradient(135deg,var(--t-primary),var(--t-primary2));
+  display:flex; align-items:center; justify-content:center; font-size:27px;
+  box-shadow:0 8px 22px rgba(124,58,237,.4);
+}
+.login-title{ text-align:center; font-size:22px; font-weight:800; color:#1a1a2e; letter-spacing:-.3px; }
+.login-sub{ text-align:center; font-size:12px; color:#9ca3af; margin-top:5px; }
+.login-field{ margin-top:16px; }
+.login-field label{ display:block; font-size:12px; font-weight:700; color:#374151; margin-bottom:6px; }
+.login-field input{
+  width:100%; box-sizing:border-box; padding:11px 13px; border:1px solid #e5e7eb;
+  border-radius:11px; font-size:13px; outline:none; font-family:inherit; transition:.15s;
+}
+.login-field input:focus{ border-color:#7c3aed; box-shadow:0 0 0 3px rgba(124,58,237,.12); }
+.login-btn{
+  width:100%; margin-top:22px; padding:12px; border:none; border-radius:12px; cursor:pointer;
+  font-size:14px; font-weight:700; color:#fff; font-family:inherit;
+  background:linear-gradient(135deg,var(--t-primary),var(--t-primary2)); box-shadow:0 8px 20px rgba(124,58,237,.35); transition:.15s;
+}
+.login-btn:hover{ filter:brightness(1.07); }
+.login-btn:disabled{ opacity:.7; cursor:default; }
+.login-err{
+  display:none; background:#fef2f2; border:1px solid #fecaca; border-radius:9px;
+  padding:10px 12px; font-size:12px; color:#dc2626; margin-top:14px;
+}
+.login-foot{ text-align:center; font-size:11px; color:#9ca3af; margin-top:16px; }
  
 /* ── DARK MODE ────────────────────────────────────────────── */
 body.dark{
@@ -734,33 +773,24 @@ body.dark .pg-info{ color:#9ca3af; }
 <!-- ══════════════════════════════════════════════════════════ -->
 <!-- LOGIN PAGE -->
 <!-- ══════════════════════════════════════════════════════════ -->
-<div id="login-page" style="display:none;position:fixed;inset:0;background:linear-gradient(135deg,#4c1d95 0%,#6366f1 100%);z-index:9999;display:flex;align-items:center;justify-content:center">
-  <div style="background:white;border-radius:12px;padding:40px;width:360px;box-shadow:0 20px 60px rgba(0,0,0,0.3)">
-    <div style="text-align:center;margin-bottom:28px">
-      <div style="font-size:32px;margin-bottom:8px">🔒</div>
-      <h2 style="margin:0;font-size:20px;color:#1a3a6b">PRISMA · TA-ex System</h2>
-      <p style="margin:6px 0 0;font-size:12px;color:#6b7280">Masuk untuk melanjutkan</p>
-    </div>
-    <div id="login-error" style="display:none;background:#fef2f2;border:1px solid #fecaca;border-radius:6px;padding:10px 12px;font-size:12px;color:#dc2626;margin-bottom:16px"></div>
-    <div style="margin-bottom:14px">
-      <label style="font-size:12px;font-weight:600;color:#374151;display:block;margin-bottom:5px">Username</label>
+<div id="login-page" class="login-bg" style="display:none;">
+  <div class="login-card">
+    <div class="login-logo">📦</div>
+    <div class="login-title">Monitoring PR</div>
+    <div class="login-sub">Masuk untuk melanjutkan</div>
+    <div id="login-error" class="login-err"></div>
+    <div class="login-field">
+      <label>Username</label>
       <input id="login-username" type="text" placeholder="Masukkan username" autocomplete="username"
-        style="width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid #d1d5db;border-radius:6px;font-size:13px;outline:none"
         onkeydown="if(event.key==='Enter')document.getElementById('login-password').focus()">
     </div>
-    <div style="margin-bottom:20px">
-      <label style="font-size:12px;font-weight:600;color:#374151;display:block;margin-bottom:5px">Password</label>
+    <div class="login-field">
+      <label>Password</label>
       <input id="login-password" type="password" placeholder="Masukkan password" autocomplete="current-password"
-        style="width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid #d1d5db;border-radius:6px;font-size:13px;outline:none"
         onkeydown="if(event.key==='Enter')doLogin()">
     </div>
-    <button onclick="doLogin()" id="login-btn"
-      style="width:100%;padding:11px;background:#6366f1;color:white;border:none;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer">
-      Masuk
-    </button>
-    <p style="text-align:center;font-size:11px;color:#9ca3af;margin-top:16px;margin-bottom:0">
-      Hubungi admin untuk mendapatkan akun
-    </p>
+    <button onclick="doLogin()" id="login-btn" class="login-btn">Masuk</button>
+    <div class="login-foot">Hubungi admin untuk mendapatkan akun</div>
   </div>
 </div>
 
@@ -868,16 +898,18 @@ body.dark .pg-info{ color:#9ca3af; }
 <!-- HEADER -->
 <div class="header">
   <div class="hdr-left">
+    <button class="icon-btn" id="railToggleBtn" onclick="toggleRail()" title="Sembunyikan / tampilkan menu">☰</button>
     <nav class="breadcrumb">
       <span class="bc-home">🏠 Home</span>
       <span class="bc-sep">›</span>
-      <span class="bc-current" id="appTitle">TA-ex</span>
+      <span class="bc-current">Monitoring PR</span>
     </nav>
-    <span id="headerSubtitle" class="hdr-sub"></span>
+    <span id="appTitle" style="display:none;"></span>
+    <span id="headerSubtitle" style="display:none;"></span>
   </div>
   <div class="hdr-right">
     <button class="icon-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Mode gelap / terang">🌙</button>
-    <button class="icon-btn" title="Notifikasi"><span class="notif-badge">1</span>🔔</button>
+    <!-- lonceng notifikasi DIHAPUS -->
     <div class="user-chip">
       <div class="user-avatar">AD</div>
       <span id="header-user-info"></span>
@@ -3004,8 +3036,14 @@ function toggleTheme(){
   const b = document.getElementById('themeToggleBtn');
   if (b) b.textContent = dark ? '☀️' : '🌙';
 }
+ 
+// Show / hide sidebar + simpan pilihan
+function toggleRail(){
+  const hidden = document.body.classList.toggle('rail-hidden');
+  try { localStorage.setItem('prisma_rail', hidden ? 'hidden' : 'shown'); } catch(e){}
+}
+ 
 (function(){
-  // Pulihkan tema tersimpan
   try {
     if (localStorage.getItem('prisma_theme') === 'dark') {
       document.body.classList.add('dark');
@@ -3013,15 +3051,27 @@ function toggleTheme(){
       if (b) b.textContent = '☀️';
     }
   } catch(e){}
-  // Karena label sidebar disembunyikan, pakai tooltip bawaan browser dari teks .tab-label
+ 
+  try {
+    if (localStorage.getItem('prisma_rail') === 'hidden') document.body.classList.add('rail-hidden');
+  } catch(e){}
+ 
   function setTips(){
     document.querySelectorAll('.sidebar .tab').forEach(t => {
       const l = t.querySelector('.tab-label');
       if (l && !t.title) t.title = l.textContent.trim();
     });
   }
-  if (document.readyState !== 'loading') setTips();
-  else document.addEventListener('DOMContentLoaded', setTips);
+  function hideZeroBadges(){
+    document.querySelectorAll('.tab-badge').forEach(b => {
+      const t = b.textContent.trim();
+      b.style.display = (t === '' || t === '0') ? 'none' : '';
+    });
+  }
+  function run(){ setTips(); hideZeroBadges(); }
+  if (document.readyState !== 'loading') run();
+  else document.addEventListener('DOMContentLoaded', run);
+  setInterval(hideZeroBadges, 800);
 })();
 
 // ============================================================
