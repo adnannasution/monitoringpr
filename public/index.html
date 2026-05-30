@@ -598,7 +598,136 @@ input.row-check { cursor: pointer; accent-color: #6366f1; width: 14px; height: 1
 .init-dots span:nth-child(3) { animation-delay: 0.4s; }
 @keyframes initDot { 0%,80%,100%{transform:scale(0.6);opacity:0.35} 40%{transform:scale(1.1);opacity:1} }
 
+
+
 </style>
+
+
+<style id="tema-baru-prisma">
+:root{
+  --t-bg:#f4f6fb; --t-surface:#ffffff; --t-rail:#ffffff;
+  --t-primary:#6d28d9; --t-primary2:#a855f7;
+  --t-text:#1a1a2e; --t-muted:#6b7280; --t-border:#ecedf8;
+}
+body{ background:var(--t-bg) !important; color:var(--t-text); }
+ 
+/* ── TOP BAR + BREADCRUMB ─────────────────────────────────── */
+.header{
+  background:var(--t-surface) !important; height:60px !important;
+  padding:0 22px !important; border-bottom:1px solid var(--t-border) !important;
+  box-shadow:0 1px 10px rgba(20,20,50,.05) !important;
+}
+.hdr-left{ display:flex; align-items:center; gap:14px; }
+.breadcrumb{ display:flex; align-items:center; gap:9px; font-size:14px; }
+.bc-home{ color:var(--t-muted); font-weight:600; }
+.bc-sep{ color:#cfd3e6; font-size:15px; }
+.bc-current{ color:var(--t-text); font-weight:800; letter-spacing:-.2px; }
+.hdr-sub{ font-size:11px; color:#9ca3af; padding-left:12px; border-left:1px solid #e5e7eb; }
+.hdr-right{ display:flex; align-items:center; gap:8px; }
+.icon-btn{
+  position:relative; width:38px; height:38px; border-radius:11px;
+  border:1px solid var(--t-border); background:#fff; cursor:pointer; font-size:16px;
+  display:flex; align-items:center; justify-content:center; transition:.15s;
+}
+.icon-btn:hover{ background:#f3f0ff; border-color:#ddd6fe; }
+.notif-badge{
+  position:absolute; top:-5px; right:-5px; background:#ef4444; color:#fff;
+  font-size:9px; font-weight:800; min-width:16px; height:16px; border-radius:99px;
+  display:flex; align-items:center; justify-content:center; padding:0 4px; border:2px solid #fff;
+}
+.user-chip{
+  display:flex; align-items:center; gap:8px; background:#f8f9ff;
+  border:1px solid var(--t-border); border-radius:99px; padding:4px 12px 4px 5px;
+}
+.user-avatar{
+  width:26px; height:26px; border-radius:50%; color:#fff; font-size:10px; font-weight:800;
+  background:linear-gradient(135deg,var(--t-primary),var(--t-primary2));
+  display:flex; align-items:center; justify-content:center;
+}
+#header-user-info{ font-size:11px; font-weight:600; color:#374151; }
+.hdr-btn{
+  background:#f4f6fb; border:1px solid var(--t-border); color:#374151; border-radius:10px;
+  padding:8px 14px; font-size:12px; font-weight:700; cursor:pointer; font-family:inherit; transition:.15s;
+}
+.hdr-btn:hover{ background:#ede9fe; border-color:#c4b5fd; color:#6d28d9; }
+.hdr-btn.danger{ color:#dc2626; }
+.hdr-btn.danger:hover{ background:#fef2f2; border-color:#fecaca; }
+.hdr-btn.logout{ background:linear-gradient(135deg,var(--t-primary),var(--t-primary2)); color:#fff; border:none; }
+.hdr-btn.logout:hover{ filter:brightness(1.08); }
+ 
+/* ── SIDEBAR → RAIL IKON ──────────────────────────────────── */
+.sidebar{
+  width:66px !important; min-width:66px !important;
+  background:var(--t-rail) !important; border-right:1px solid var(--t-border) !important;
+}
+.sidebar-top{ padding:12px 8px !important; }
+.sb-section-label{
+  height:1px !important; background:var(--t-border) !important;
+  margin:12px 12px 8px !important; padding:0 !important; font-size:0 !important; overflow:hidden;
+}
+.tab{
+  width:48px !important; height:46px !important; margin:5px auto !important; padding:0 !important;
+  border-radius:14px !important; justify-content:center !important; position:relative; color:#9ca3af !important;
+}
+.tab .tab-icon{ font-size:19px !important; width:auto !important; }
+.tab .tab-label{ display:none !important; }      /* judul muncul lewat tooltip native (title) */
+.tab:hover{ background:#f3f0ff !important; color:#6d28d9 !important; }
+.tab.active{
+  background:linear-gradient(135deg,var(--t-primary),var(--t-primary2)) !important; color:#fff !important;
+  box-shadow:0 6px 16px rgba(124,58,237,.4) !important;
+}
+.tab-badge{
+  position:absolute !important; top:2px; right:2px; min-width:15px !important; height:15px;
+  padding:0 4px !important; font-size:8px !important; border-radius:99px !important;
+  background:#ef4444 !important; color:#fff !important; border:1.5px solid #fff;
+  display:flex !important; align-items:center; justify-content:center; margin:0 !important;
+}
+.tab.active .tab-badge{ background:#fff !important; color:#6d28d9 !important; }
+.tab-badge:empty{ display:none !important; }
+ 
+/* ── FILTER BAR + TOMBOL ──────────────────────────────────── */
+.filter-bar{ border:1px solid var(--t-border) !important; border-radius:14px !important; box-shadow:0 1px 6px rgba(20,20,50,.04) !important; }
+.filter-bar input, .filter-bar select{ border-radius:10px !important; }
+.btn{ border-radius:10px !important; }
+.btn-search{ background:linear-gradient(135deg,var(--t-primary),var(--t-primary2)) !important; box-shadow:0 3px 10px rgba(124,58,237,.3) !important; }
+.btn-purple{ background:linear-gradient(135deg,var(--t-primary),var(--t-primary2)) !important; }
+.col-toggle-btn{ border-radius:10px !important; }
+.info-bar{ border-radius:12px !important; }
+ 
+/* ── TABEL + KARTU (radius lebih lembut, kepala tetap navy) ── */
+.table-container, .table-wrap{ border-radius:14px !important; }
+.trk-card{ border-radius:16px !important; }
+.pagination{ border-radius:0 0 14px 14px; }
+ 
+/* ── DARK MODE ────────────────────────────────────────────── */
+body.dark{
+  --t-bg:#0f1020; --t-surface:#1a1b2e; --t-rail:#15162a;
+  --t-text:#e5e7eb; --t-muted:#9ca3af; --t-border:#2a2c45;
+  background:var(--t-bg) !important; color:#e5e7eb;
+}
+body.dark .header{ background:var(--t-surface) !important; border-bottom-color:var(--t-border) !important; }
+body.dark .bc-current{ color:#fff; }
+body.dark .sidebar{ background:var(--t-rail) !important; border-right-color:var(--t-border) !important; }
+body.dark .tab{ color:#8b8da3 !important; }
+body.dark .tab:hover{ background:#26284a !important; color:#c4b5fd !important; }
+body.dark .pages, body.dark .page{ background:var(--t-bg) !important; }
+body.dark .filter-bar, body.dark .table-container, body.dark .table-wrap,
+body.dark .trk-card, body.dark .info-bar{ background:var(--t-surface) !important; border-color:var(--t-border) !important; color:#e5e7eb; }
+body.dark table tbody tr, body.dark tbody tr:nth-child(even){ background:var(--t-surface) !important; }
+body.dark td{ color:#d1d5db !important; border-right-color:#26284a !important; }
+body.dark tbody tr{ border-bottom-color:#26284a !important; }
+body.dark tbody tr:hover td{ background:#23253f !important; }
+body.dark .filter-bar input, body.dark .filter-bar select{ background:#23253f !important; border-color:var(--t-border) !important; color:#e5e7eb; }
+body.dark .icon-btn, body.dark .hdr-btn, body.dark .user-chip{ background:#23253f !important; border-color:var(--t-border) !important; color:#e5e7eb; }
+body.dark #header-user-info, body.dark .hdr-sub{ color:#cbd5e1; }
+body.dark .trk-card-val{ color:#e9d5ff !important; }
+body.dark .trk-card-lbl{ color:#8b8da3 !important; }
+body.dark .pagination{ background:var(--t-surface) !important; border-top-color:var(--t-border) !important; }
+body.dark .pg-btn, body.dark .pg-size{ background:#23253f !important; border-color:var(--t-border) !important; color:#e5e7eb; }
+body.dark .pg-info{ color:#9ca3af; }
+</style>
+
+
 </head>
 <body>
 
@@ -738,24 +867,26 @@ input.row-check { cursor: pointer; accent-color: #6366f1; width: 14px; height: 1
 
 <!-- HEADER -->
 <div class="header">
-  <h1 id="appTitle">
-    <span class="header-logo-box">📦</span>
-    <span>PRISMA · TA-ex<span class="header-title-sub">Reservation System</span></span>
-  </h1>
-  <div style="display:flex;align-items:center;gap:8px;">
-    <span id="headerSubtitle" class="header-right" style="font-size:11px;"></span>
-    <div id="headerRight" style="display:flex;align-items:center;gap:8px;">
-      <div class="header-chip">
-        <div class="header-avatar">AD</div>
-        <span id="header-user-info" style="font-size:11px;color:#374151;font-weight:600;"></span>
-      </div>
-      <button id="btn-admin-panel" onclick="openAdminPanel()" style="display:none;" class="header-btn">⚙ Admin</button>
-      <button onclick="doLogout()" class="header-btn logout">Logout</button>
+  <div class="hdr-left">
+    <nav class="breadcrumb">
+      <span class="bc-home">🏠 Home</span>
+      <span class="bc-sep">›</span>
+      <span class="bc-current" id="appTitle">TA-ex</span>
+    </nav>
+    <span id="headerSubtitle" class="hdr-sub"></span>
+  </div>
+  <div class="hdr-right">
+    <button class="icon-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Mode gelap / terang">🌙</button>
+    <button class="icon-btn" title="Notifikasi"><span class="notif-badge">1</span>🔔</button>
+    <div class="user-chip">
+      <div class="user-avatar">AD</div>
+      <span id="header-user-info"></span>
     </div>
-    <button onclick="confirmResetAll()" class="header-btn" style="color:#dc2626;border-color:#fecaca;" onmouseover="this.style.background='#fef2f2'" onmouseout="this.style.background='#f4f6fb'">🗑 Reset</button>
+    <button id="btn-admin-panel" onclick="openAdminPanel()" style="display:none;" class="hdr-btn">⚙ Admin</button>
+    <button onclick="confirmResetAll()" class="hdr-btn danger">🗑 Reset</button>
+    <button onclick="doLogout()" class="hdr-btn logout">↪ Keluar</button>
   </div>
 </div>
-
 <!-- BODY -->
 <div class="body">
 
@@ -2865,6 +2996,33 @@ input.row-check { cursor: pointer; accent-color: #6366f1; width: 14px; height: 1
 </div>
 
 <script>
+
+
+function toggleTheme(){
+  const dark = document.body.classList.toggle('dark');
+  try { localStorage.setItem('prisma_theme', dark ? 'dark' : 'light'); } catch(e){}
+  const b = document.getElementById('themeToggleBtn');
+  if (b) b.textContent = dark ? '☀️' : '🌙';
+}
+(function(){
+  // Pulihkan tema tersimpan
+  try {
+    if (localStorage.getItem('prisma_theme') === 'dark') {
+      document.body.classList.add('dark');
+      const b = document.getElementById('themeToggleBtn');
+      if (b) b.textContent = '☀️';
+    }
+  } catch(e){}
+  // Karena label sidebar disembunyikan, pakai tooltip bawaan browser dari teks .tab-label
+  function setTips(){
+    document.querySelectorAll('.sidebar .tab').forEach(t => {
+      const l = t.querySelector('.tab-label');
+      if (l && !t.title) t.title = l.textContent.trim();
+    });
+  }
+  if (document.readyState !== 'loading') setTips();
+  else document.addEventListener('DOMContentLoaded', setTips);
+})();
 
 // ============================================================
 // LOADING OVERLAY + PROGRESS BAR
