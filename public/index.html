@@ -782,6 +782,8 @@ body.dark .trk-card-lbl{ color:#8b8da3 !important; }
 body.dark .pagination{ background:var(--t-surface) !important; border-top-color:var(--t-border) !important; }
 body.dark .pg-btn, body.dark .pg-size{ background:#23253f !important; border-color:var(--t-border) !important; color:#e5e7eb; }
 body.dark .pg-info{ color:#9ca3af; }
+
+.tab-badge{ display:none !important; }
 </style>
 
 
@@ -945,10 +947,10 @@ body.dark .pg-info{ color:#9ca3af; }
   <div class="sidebar-top">
     <div class="sb-section-label">Menu Utama</div>
     <div class="tab active" id="tab-taex" onclick="switchApp('taex')">
-      <span class="tab-icon">📦</span><span class="tab-label">TA-ex Reservasi</span><span class="tab-badge" id="badge-taex">0</span>
+      <span class="tab-icon">📦</span><span class="tab-label">Reservasi SAP</span><span class="tab-badge" id="badge-taex">0</span>
     </div>
     <div class="tab" id="tab-prisma-reservasi" onclick="switchApp('prisma-reservasi')">
-      <span class="tab-icon">📋</span><span class="tab-label">PRISMA Reservasi</span><span class="tab-badge" id="badge-prisma">0</span>
+      <span class="tab-icon">📋</span><span class="tab-label">Reservasi Procurement</span><span class="tab-badge" id="badge-prisma">0</span>
     </div>
     <div class="tab" id="tab-kertas-kerja" onclick="switchApp('kertas-kerja')">
       <span class="tab-icon">📝</span><span class="tab-label">Kertas Kerja</span><span class="tab-badge" id="badge-kk">0</span>
@@ -957,7 +959,7 @@ body.dark .pg-info{ color:#9ca3af; }
       <span class="tab-icon">📊</span><span class="tab-label">Summary</span><span class="tab-badge" id="badge-sum">0</span>
     </div>
     <div class="tab" id="tab-kumpulan" onclick="switchApp('kumpulan')">
-      <span class="tab-icon">🗂</span><span class="tab-label">Kumpulan Summary</span><span class="tab-badge" id="badge-ks">0</span>
+      <span class="tab-icon">🗂</span><span class="tab-label">Collective Summary</span><span class="tab-badge" id="badge-ks">0</span>
     </div>
     <div class="sb-section-label" style="margin-top:8px;">Procurement</div>
     <div class="tab" id="tab-pr" onclick="switchApp('pr')">
