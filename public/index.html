@@ -653,39 +653,56 @@ body{ background:var(--t-bg) !important; color:var(--t-text); }
 .hdr-btn.logout{ background:linear-gradient(135deg,var(--t-primary),var(--t-primary2)); color:#fff; border:none; }
 .hdr-btn.logout:hover{ filter:brightness(1.08); }
  
-/* ── SIDEBAR → RAIL IKON + SHOW/HIDE ──────────────────────── */
+/* ════ SIDEBAR — DEFAULT TERBUKA (ikon + tulisan) ════ */
 .sidebar{
-  width:66px !important; min-width:66px !important;
+  width:222px !important; min-width:222px !important;
   background:var(--t-rail) !important; border-right:1px solid var(--t-border) !important;
-  transition:width .22s ease, min-width .22s ease;
+  transition:width .22s ease, min-width .22s ease; overflow-x:hidden;
 }
-body.rail-hidden .sidebar{
-  width:0 !important; min-width:0 !important; border-right:none !important; overflow:hidden !important;
-}
-.sidebar-top{ padding:12px 8px !important; }
+.sidebar-top{ padding:12px !important; }
 .sb-section-label{
-  height:1px !important; background:var(--t-border) !important;
-  margin:12px 12px 8px !important; padding:0 !important; font-size:0 !important; overflow:hidden;
+  font-size:9px !important; font-weight:700 !important; color:#a78bfa !important;
+  text-transform:uppercase; letter-spacing:1.2px; padding:0 10px !important;
+  margin:14px 0 5px !important; height:auto !important; background:none !important; overflow:visible;
 }
 .tab{
-  width:48px !important; height:46px !important; margin:5px auto !important; padding:0 !important;
-  border-radius:14px !important; justify-content:center !important; position:relative; color:#9ca3af !important;
+  display:flex !important; align-items:center !important; gap:11px !important;
+  width:auto !important; height:auto !important; padding:10px 12px !important; margin:2px 0 !important;
+  border-radius:11px !important; justify-content:flex-start !important; position:relative;
+  font-size:12px !important; font-weight:600 !important; color:#6b7280 !important;
 }
-.tab .tab-icon{ font-size:19px !important; width:auto !important; }
-.tab .tab-label{ display:none !important; }
+.tab .tab-icon{ font-size:17px !important; width:20px !important; text-align:center; flex-shrink:0; }
+.tab .tab-label{ display:block !important; flex:1; white-space:nowrap; }
 .tab:hover{ background:#f3f0ff !important; color:#6d28d9 !important; }
 .tab.active{
   background:linear-gradient(135deg,var(--t-primary),var(--t-primary2)) !important; color:#fff !important;
   box-shadow:0 6px 16px rgba(124,58,237,.4) !important;
 }
 .tab-badge{
-  position:absolute !important; top:2px; right:2px; min-width:15px !important; height:15px;
-  padding:0 4px !important; font-size:8px !important; border-radius:99px !important;
-  background:#ef4444 !important; color:#fff !important; border:1.5px solid #fff;
-  display:flex !important; align-items:center; justify-content:center; margin:0 !important;
+  position:static !important; min-width:20px !important; height:auto; padding:2px 7px !important;
+  font-size:9px !important; border-radius:99px !important; background:#ef4444 !important; color:#fff !important;
+  border:none !important; margin:0 !important;
 }
-.tab.active .tab-badge{ background:#fff !important; color:#6d28d9 !important; }
+.tab.active .tab-badge{ background:rgba(255,255,255,.3) !important; color:#fff !important; }
 .tab-badge:empty{ display:none !important; }
+ 
+/* ════ SIDEBAR — KEADAAN CIUT (ikon saja) ════ */
+body.rail-collapsed .sidebar{ width:66px !important; min-width:66px !important; }
+body.rail-collapsed .sb-section-label{
+  height:1px !important; background:var(--t-border) !important;
+  margin:12px 12px 8px !important; padding:0 !important; font-size:0 !important; overflow:hidden;
+}
+body.rail-collapsed .tab{
+  width:48px !important; height:46px !important; margin:5px auto !important; padding:0 !important;
+  justify-content:center !important; border-radius:14px !important;
+}
+body.rail-collapsed .tab .tab-label{ display:none !important; }
+body.rail-collapsed .tab .tab-icon{ font-size:19px !important; width:auto !important; }
+body.rail-collapsed .tab-badge{
+  position:absolute !important; top:2px; right:2px; min-width:15px !important; height:15px;
+  padding:0 4px !important; font-size:8px !important; border:1.5px solid #fff !important;
+}
+body.rail-collapsed .tab.active .tab-badge{ background:#fff !important; color:#6d28d9 !important; }
  
 /* ── FILTER BAR + TOMBOL ──────────────────────────────────── */
 .filter-bar{ border:1px solid var(--t-border) !important; border-radius:14px !important; box-shadow:0 1px 6px rgba(20,20,50,.04) !important; }
@@ -749,6 +766,7 @@ body.dark .bc-current{ color:#fff; }
 body.dark .sidebar{ background:var(--t-rail) !important; border-right-color:var(--t-border) !important; }
 body.dark .tab{ color:#8b8da3 !important; }
 body.dark .tab:hover{ background:#26284a !important; color:#c4b5fd !important; }
+body.dark .sb-section-label{ color:#8b6fd1 !important; }
 body.dark .pages, body.dark .page{ background:var(--t-bg) !important; }
 body.dark .filter-bar, body.dark .table-container, body.dark .table-wrap,
 body.dark .trk-card, body.dark .info-bar{ background:var(--t-surface) !important; border-color:var(--t-border) !important; color:#e5e7eb; }
@@ -3030,6 +3048,7 @@ body.dark .pg-info{ color:#9ca3af; }
 <script>
 
 
+// Toggle dark / light + simpan pilihan
 function toggleTheme(){
   const dark = document.body.classList.toggle('dark');
   try { localStorage.setItem('prisma_theme', dark ? 'dark' : 'light'); } catch(e){}
@@ -3037,10 +3056,10 @@ function toggleTheme(){
   if (b) b.textContent = dark ? '☀️' : '🌙';
 }
  
-// Show / hide sidebar + simpan pilihan
+// Buka (ada tulisan) / Ciutkan (ikon saja) sidebar + simpan pilihan
 function toggleRail(){
-  const hidden = document.body.classList.toggle('rail-hidden');
-  try { localStorage.setItem('prisma_rail', hidden ? 'hidden' : 'shown'); } catch(e){}
+  const collapsed = document.body.classList.toggle('rail-collapsed');
+  try { localStorage.setItem('prisma_rail', collapsed ? 'collapsed' : 'open'); } catch(e){}
 }
  
 (function(){
@@ -3052,16 +3071,19 @@ function toggleRail(){
     }
   } catch(e){}
  
+  // Pulihkan keadaan sidebar (default: terbuka / ada tulisan)
   try {
-    if (localStorage.getItem('prisma_rail') === 'hidden') document.body.classList.add('rail-hidden');
+    if (localStorage.getItem('prisma_rail') === 'collapsed') document.body.classList.add('rail-collapsed');
   } catch(e){}
  
+  // Tooltip judul menu (berguna saat sidebar diciutkan)
   function setTips(){
     document.querySelectorAll('.sidebar .tab').forEach(t => {
       const l = t.querySelector('.tab-label');
       if (l && !t.title) t.title = l.textContent.trim();
     });
   }
+  // Sembunyikan badge angka 0 / kosong
   function hideZeroBadges(){
     document.querySelectorAll('.tab-badge').forEach(b => {
       const t = b.textContent.trim();
@@ -3073,6 +3095,7 @@ function toggleRail(){
   else document.addEventListener('DOMContentLoaded', run);
   setInterval(hideZeroBadges, 800);
 })();
+
 
 // ============================================================
 // LOADING OVERLAY + PROGRESS BAR
