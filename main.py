@@ -761,6 +761,14 @@ async def create_kertas_kerja(request: Request):
 
     if not rows:
         raise HTTPException(404, "Tidak ada data PRISMA untuk WO yang dipilih")
+    
+    # Tandai code_kertas_kerja di DB (server-side, tidak bergantung state frontend)
+    ids = [r["id"] for r in rows]
+    ph_ids = ",".join(["%s"] * len(ids))
+    execute(
+        f"UPDATE prisma_reservasi SET code_kertas_kerja=%s, updated_at=NOW() WHERE id IN ({ph_ids})",
+        [code] + ids
+    )
 
     kk_data = []
     for r in rows:
