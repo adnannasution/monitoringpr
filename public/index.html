@@ -1487,6 +1487,7 @@ body.dark .pg-info{ color:#9ca3af; }
     <button class="btn btn-orange" onclick="downloadPoTemplate()" style="margin-left:4px">📋 Download Template</button>
     <button class="btn btn-export" onclick="exportPoExcel()" style="margin-left:4px">📤 Export Excel</button>
     <button class="col-toggle-btn" onclick="toggleColPanel('po')" style="margin-left:4px">⚙ Kolom</button>
+    <button class="btn btn-purple" onclick="syncPO()" style="margin-left:8px">🔄 Sinkron PO</button>
     <span class="filter-right" id="po-rowCount"></span>
   </div>
   <div class="bulk-bar" id="bulk-bar-po">
@@ -8412,6 +8413,24 @@ async function deleteUser(id, username) {
     loadAdminUsers();
   } catch(e) { toast('Gagal: '+e.message,'err'); }
 }
+
+async function syncPO() {
+  if (!confirm('Sinkronisasi PO ke Taex Reservasi? Update kolom PO, PO Date, Qty Deliv, Delivery Date berdasarkan PR + Item.')) return;
+  const btns = document.querySelectorAll('button[onclick="syncPO()"]');
+  btns.forEach(b => { b.disabled = true; b.textContent = '⏳ Sinkronisasi...'; });
+  try {
+    const res = await fetch('/api/po/sync-to-taex', { method: 'POST', headers: { 'x-api-key': '', 'x-auth-token': getToken() } });
+    const d = await res.json();
+    if (!res.ok) throw new Error(d.detail || 'Gagal');
+    toast('Sinkron PO selesai: ' + (d.updated || 0).toLocaleString('id-ID') + ' baris ter-update', 'ok');
+    if (typeof renderTracking === 'function') renderTracking();
+  } catch(e) {
+    toast('Gagal sinkron PO: ' + e.message, 'err');
+  } finally {
+    btns.forEach(b => { b.disabled = false; b.textContent = '🔄 Sinkron PO ke Tracking'; });
+  }
+}
+
 
 // ============================================================
 // BOOT
